@@ -1,0 +1,26 @@
+{
+  "name": "seyofi-media-os",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "pnpm@10.13.1",
+  "scripts": {
+    "dev": "pnpm --parallel --if-present dev",
+    "typecheck": "pnpm exec tsc --noEmit",
+    "lint": "pnpm run typecheck",
+    "test": "pnpm exec vitest run",
+    "test:watch": "pnpm exec vitest",
+    "build": "pnpm run typecheck && pnpm run test",
+    "prisma:validate": "pnpm exec prisma validate --schema prisma/schema.prisma",
+    "prisma:generate": "pnpm exec prisma generate --schema prisma/schema.prisma",
+    "db:push": "pnpm exec prisma db push --schema prisma/schema.prisma"
+  },
+  "devDependencies": {
+    "@prisma/client": "^6.19.3",
+    "@types/node": "26.4.1",
+    "prisma": "6.19.3",
+    "typescript": "5.9.3",
+    "vite": "8.2.2",
+    "vitest": "4.1.11"
+  }
+}
