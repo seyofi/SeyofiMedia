@@ -1,0 +1,8 @@
+{
+  "name": "Seyofi Media OS",
+  "description": "Operating system and execution foundation for media, film production, intelligence core, creative workspace, and autonomous enterprise architecture.",
+  "requestFeedback": false,
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

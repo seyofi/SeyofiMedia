@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  status      String   @default("PLANNING")
+  budget      Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  scenes      Scene[]
+  tasks       WorkflowTask[]
+}
+
+model Scene {
+  id          String   @id @default(uuid())
+  projectId   String
+  sceneNumber Int
+  title       String
+  location    String
+  timeOfDay   String   @default("DAY")
+  scriptPages Float    @default(1.0)
+  status      String   @default("DRAFT")
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Character {
+  id          String   @id @default(uuid())
+  code        String   @unique
+  name        String
+  era         String   @default("ERA_003_KERMA")
+  archetype   String
+  visualDna   String?
+  prompts     String?
+  status      String   @default("ACTIVE")
+  createdAt   DateTime @default(now())
+}
+
+model CognitiveUnit {
+  id           String   @id @default(uuid())
+  unitCode     String   @unique
+  name         String
+  category     String
+  status       String   @default("OPERATIONAL")
+  confidence   Float    @default(0.95)
+  lastExecuted DateTime @default(now())
+}
+
+model WorkflowTask {
+  id          String   @id @default(uuid())
+  projectId   String
+  title       String
+  stage       String   @default("PRE_PRODUCTION")
+  status      String   @default("PENDING")
+  automation  String?  @default("n8n")
+  assignedTo  String?
+  createdAt   DateTime @default(now())
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
